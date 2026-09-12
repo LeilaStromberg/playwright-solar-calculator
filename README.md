@@ -11,6 +11,7 @@ The application is a simple solar energy calculator used as the system under tes
 ## Test Framework Features
 
 - Playwright with TypeScript
+- UI and API testing
 - Page Object Model (POM)
 - Custom Playwright fixtures
 - Separate test data
@@ -28,10 +29,15 @@ The application is a simple solar energy calculator used as the system under tes
 
 ```text
 playwright_calc/
+├── .github/
+│   └── workflows/
+│       └── playwright.yml
 ├── src/
 │   ├── App.tsx
 │   └── main.tsx
 ├── tests/
+│   ├── api/
+│   │   └── api.spec.ts
 │   ├── data/
 │   │   └── calculatorData.ts
 │   ├── e2e/
@@ -40,9 +46,13 @@ playwright_calc/
 │   │   └── testFixtures.ts
 │   └── pages/
 │       └── CalculatorPage.ts
+├── README.md
+├── index.html
 ├── playwright.config.ts
+├── tsconfig.json
 ├── package.json
-└── tsconfig.json
+├── package-lock.json
+└── .gitignore
 ```
 
 ## Installation
@@ -61,18 +71,16 @@ npx playwright install
 
 ## Running the Tests
 
-Run all E2E tests:
+Run all Playwright tests:
 
 ```bash
 npm run test:e2e
 ```
 
-The tests run across Chromium, Firefox, and WebKit.
-
-## HTML Report
-
-After running the tests, open the Playwright HTML report with:
+Run only the API tests:
 
 ```bash
-npx playwright show-report
+npx playwright test tests/api/api.spec.ts
 ```
+
+The UI tests run across Chromium, Firefox, and WebKit, while the API tests run once in the dedicated API project.
