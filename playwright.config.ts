@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: './tests',
   retries: 1,
   reporter: 'html',
 
@@ -13,19 +13,26 @@ export default defineConfig({
   projects: [
   {
     name: 'chromium',
+    testIgnore: /api\/.*\.spec\.ts/,
     use: { ...devices['Desktop Chrome'] },
   },
 
   {
     name: 'firefox',
+    testIgnore: /api\/.*\.spec\.ts/,
     use: { ...devices['Desktop Firefox'] },
   },
 
   {
     name: 'webkit',
+    testIgnore: /api\/.*\.spec\.ts/,
     use: { ...devices['Desktop Safari'] },
   },
-  
+
+  {
+    name: 'api',
+    testMatch: /api\/.*\.spec\.ts/,
+  },
 ],
 
     webServer: {
