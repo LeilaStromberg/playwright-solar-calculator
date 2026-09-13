@@ -36,6 +36,7 @@ export default defineConfig({
       baseURL: 'https://jsonplaceholder.typicode.com',
       extraHTTPHeaders: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.API_TOKEN}`,
      },
     },
   },
