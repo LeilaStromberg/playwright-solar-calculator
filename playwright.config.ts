@@ -34,7 +34,10 @@ export default defineConfig({
     testMatch: /api\/.*\.spec\.ts/,
     use: {
       baseURL: 'https://jsonplaceholder.typicode.com',
-  },
+      extraHTTPHeaders: {
+      'Content-Type': 'application/json',
+     },
+    },
   },
 ],
 
