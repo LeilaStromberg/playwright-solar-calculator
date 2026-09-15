@@ -39,14 +39,19 @@ test.describe('Solar Energy Calculator', () => {
       await calculatorPage.goto();
   });
 
-  // Ett enkelt smoke test
-  test('displays the solar energy calculator', async ({ calculatorPage }) => {
+ test(
+    'displays the solar energy calculator',
+    { tag: '@smoke' },
+    async ({ calculatorPage }) => {
 
-    await expect(calculatorPage.heading).toBeVisible();
-  });
+      await expect(calculatorPage.heading).toBeVisible();
+    }
+  );  
 
-  test('calculates daily and annual energy production', async ({ calculatorPage }) => {
-
+  test(
+  'calculates daily and annual energy production',
+  { tag: '@regression' },
+  async ({ calculatorPage }) => {
     await calculatorPage.calculate(
       validCalculation.numberOfPanels,
       validCalculation.panelPower,
@@ -59,9 +64,13 @@ test.describe('Solar Energy Calculator', () => {
 
     await expect(calculatorPage.annualEnergyResult)
       .toHaveText(validCalculation.expectedAnnualEnergy);
-  });
+  }
+);
 
-  test.describe('Validation', () => {
+  test.describe(
+    'Validation',
+    { tag: '@regression' },
+    () => {
     for (const testCase of invalidPanelCases) {
       test(`shows an error when number of panels is ${testCase.numberOfPanels}`, async ({ calculatorPage }) => {
 
