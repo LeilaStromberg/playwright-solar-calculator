@@ -20,20 +20,35 @@ export class CalculatorPage {
     this.calculateButton = page.getByRole('button', { name: 'Calculate' });
     this.dailyEnergyResult = page.getByText(/Daily energy production:/);
     this.annualEnergyResult = page.getByText(/Annual energy production:/);
-    this.errorMessage = page.getByText(/Number of solar panels must/);
+    this.errorMessage = page.getByRole('alert');
     this.heading = page.getByRole('heading', { name: 'Solar Energy Calculator',});
   }
 
   async goto() {
-  await this.page.goto('/');
+    await this.page.goto('/');
   }
   
   async calculateWithPanels(numberOfPanels: number) {
-  await this.numberOfPanelsInput.fill(String(numberOfPanels));
-  await this.calculateButton.click();
+    await this.numberOfPanelsInput.fill(String(numberOfPanels));
+    await this.calculateButton.click();
   }
 
-  async calculate(
+  async calculateWithPanelPower(panelPower: number) {
+    await this.panelPowerInput.fill(String(panelPower));
+    await this.calculateButton.click();
+ }
+
+  async calculateWithDailySunHours(dailySunHours: number) {
+    await this.dailySunHoursInput.fill(String(dailySunHours));
+    await this.calculateButton.click();
+  }
+
+  async calculateWithSystemEfficiency(systemEfficiency: number) {
+    await this.systemEfficiencyInput.fill(String(systemEfficiency));
+    await this.calculateButton.click();
+  }
+
+async calculate(
     numberOfPanels: number,
     panelPower: number,
     dailySunHours: number,
@@ -44,6 +59,6 @@ export class CalculatorPage {
     await this.dailySunHoursInput.fill(String(dailySunHours));
     await this.systemEfficiencyInput.fill(String(systemEfficiency));
 
-    await this.calculateButton.click();   
+    await this.calculateButton.click();
   }
 }

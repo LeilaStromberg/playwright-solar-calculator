@@ -57,6 +57,21 @@ return (
             setDailyEnergy(null);
             return;
           }
+          if (panelPower <= 0) {
+            setError('Power per panel must be greater than 0.');
+            setDailyEnergy(null);
+            return;
+          }
+          if (dailySunHours <= 0) {
+            setError('Daily sun hours must be greater than 0.');
+            setDailyEnergy(null);
+            return;
+          }
+          if (systemEfficiency <= 0 || systemEfficiency > 100) {
+            setError('System efficiency must be greater than 0 and at most 100.');
+            setDailyEnergy(null);
+            return;
+          }   
             const result =
                 (numberOfPanels *
                     panelPower *
@@ -72,7 +87,7 @@ return (
     </button>
 
     {error !== null && (
-      <p>{error}</p>
+      <p role="alert">{error}</p>
     )}
     
     {dailyEnergy !== null && (

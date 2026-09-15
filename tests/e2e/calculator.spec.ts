@@ -4,11 +4,34 @@ import {
   validCalculation,
   invalidPanelCalculation,
   negativePanelCalculation,
+  invalidPanelPowerCalculation,
+  negativePanelPowerCalculation,
+  invalidDailySunHoursCalculation,
+  negativeDailySunHoursCalculation,
+  invalidSystemEfficiencyCalculation,
+  negativeSystemEfficiencyCalculation,
+  overMaxSystemEfficiencyCalculation,
 } from '../data/calculatorData';
 
 const invalidPanelCases = [
   invalidPanelCalculation,
   negativePanelCalculation,
+];
+
+const invalidPanelPowerCases = [
+  invalidPanelPowerCalculation,
+  negativePanelPowerCalculation,
+];
+
+const invalidDailySunHoursCases = [
+  invalidDailySunHoursCalculation,
+  negativeDailySunHoursCalculation,
+];
+
+const invalidSystemEfficiencyCases = [
+  invalidSystemEfficiencyCalculation,
+  negativeSystemEfficiencyCalculation,
+  overMaxSystemEfficiencyCalculation,
 ];
 
 test.describe('Solar Energy Calculator', () => {
@@ -43,6 +66,33 @@ test.describe('Solar Energy Calculator', () => {
       test(`shows an error when number of panels is ${testCase.numberOfPanels}`, async ({ calculatorPage }) => {
 
         await calculatorPage.calculateWithPanels(testCase.numberOfPanels);
+
+        await expect(calculatorPage.errorMessage)
+          .toHaveText(testCase.expectedError);
+      });
+    }
+    for (const testCase of invalidPanelPowerCases) {
+      test(`shows an error when panel power is ${testCase.panelPower}`, async ({ calculatorPage }) => {
+
+      await calculatorPage.calculateWithPanelPower(testCase.panelPower);
+
+      await expect(calculatorPage.errorMessage)
+        .toHaveText(testCase.expectedError);
+      });
+    }
+    for (const testCase of invalidDailySunHoursCases) {
+      test(`shows an error when daily sun hours is ${testCase.dailySunHours}`, async ({ calculatorPage }) => {
+
+        await calculatorPage.calculateWithDailySunHours(testCase.dailySunHours);
+
+        await expect(calculatorPage.errorMessage)
+          .toHaveText(testCase.expectedError);
+      });
+    }
+    for (const testCase of invalidSystemEfficiencyCases) {
+      test(`shows an error when system efficiency is ${testCase.systemEfficiency}`, async ({ calculatorPage }) => {
+
+        await calculatorPage.calculateWithSystemEfficiency(testCase.systemEfficiency);
 
         await expect(calculatorPage.errorMessage)
           .toHaveText(testCase.expectedError);
