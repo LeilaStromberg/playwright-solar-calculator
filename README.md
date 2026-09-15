@@ -12,6 +12,15 @@ The application is a simple solar energy calculator used as the system under tes
 
 - Playwright with TypeScript
 - UI and API testing
+- REST API testing (GET, POST, PUT, DELETE)
+- API status code and response body validation
+- API response header validation
+- API response time validation
+- Query parameter and filtering tests
+- JSON Schema validation with Ajv
+- Reusable API assertions
+- Positive and negative authentication tests
+- Environment variables and GitHub Secrets for API credentials
 - Page Object Model (POM)
 - Custom Playwright fixtures
 - Separate test data
@@ -24,6 +33,8 @@ The application is a simple solar energy calculator used as the system under tes
 - Automatic retry on test failure
 - Trace collection on first retry
 - HTML test reporting
+- CI integration with GitHub Actions
+- Playwright report artifacts in CI
 
 ## Project Structure
 
@@ -37,15 +48,20 @@ playwright_calc/
 │   └── main.tsx
 ├── tests/
 │   ├── api/
-│   │   └── api.spec.ts
+│   │   ├── api.spec.ts
+│   │   └── auth.spec.ts
 │   ├── data/
-│   │   └── calculatorData.ts
+│   │   ├── apiData.ts
+│   │   ├── calculatorData.ts
+│   │   └── postSchema.ts
 │   ├── e2e/
 │   │   └── calculator.spec.ts
 │   ├── fixtures/
 │   │   └── testFixtures.ts
-│   └── pages/
-│       └── CalculatorPage.ts
+│   ├── pages/
+│   │   └── CalculatorPage.ts
+│   └── utils/
+│       └── apiAssertions.ts
 ├── README.md
 ├── index.html
 ├── playwright.config.ts
@@ -77,10 +93,22 @@ Run all Playwright tests:
 npm run test:e2e
 ```
 
-Run only the API tests:
+Run all API tests:
+
+```bash
+npx playwright test tests/api/
+```
+
+Run only the Posts API tests:
 
 ```bash
 npx playwright test tests/api/api.spec.ts
+```
+
+Run only the authentication API tests:
+
+```bash
+npx playwright test tests/api/auth.spec.ts
 ```
 
 The UI tests run across Chromium, Firefox, and WebKit, while the API tests run once in the dedicated API project.
