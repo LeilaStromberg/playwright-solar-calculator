@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { createPostData, updatePostData } from '../data/apiData';
 import { expectValidPost } from '../utils/apiAssertions';
 
-test.describe('Posts API', () => {
+test.describe('Posts API', { tag: '@api' }, () => {
   test('GET request returns 200 and correct response body', async ({ request }) => {
     const startTime = Date.now();
 
